@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Digital Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .clock-container {
+            padding: 40px;
+            background: #333333;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: auto;
+        }
+
+        .date-display,
+        .additional-timezones {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .clock {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .toggle-format,
+        .timezone-selector {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        select {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .emoji-logo {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock-container">
+        <div class="emoji-logo">🕒</div>
+        <div class="date-display" id="date"></div>
+        <div class="clock" id="time"></div>
+        <div class="additional-timezones" id="additionalTimezones"></div>
+        <div class="timezone-selector">
+            <select onchange="changeTimezone(this.value)">
+                <option value="Local">Local Timezone</option>
+                <option value="UTC">UTC</option>
+                <option value="New_York">New York (EST)</option>
+                <option value="London">London (GMT)</option>
+                <option value="Tokyo">Tokyo (JST)</option>
+            </select>
+        </div>
+        <div class="toggle-format">
+            <button onclick="toggleTimeFormat()">Switch Format</button>
+        </div>
+    </div>
+    <script>
+        let is24HourFormat = true;
+        let selectedTimezone = 'Local';
+
+        function updateClock() {
+            const currentTime = new Date();
+            let hours = selectedTimezone === 'Local' ? currentTime.getHours() : currentTime.getUTCHours();
+            const minutes = currentTime.getMinutes();
+            const seconds = currentTime.getSeconds();
+            const dayOfWeek = currentTime.toLocaleString('en-US', { weekday: 'long', timeZone: selectedTimezone === 'Local' ? undefined : 'UTC' });
+            const date = currentTime.toLocaleDateString(undefined, { timeZone: selectedTimezone === 'Local' ? undefined : 'UTC' });
+
+            switch (selectedTimezone) {
+                case 'UTC': break;
+                case 'New_York': hours -= 5; break;
+                case 'London': hours += 0; break;
+                case 'Tokyo': hours += 9; break;
+                default: break;
+            }
+
+            hours = (hours + 24) % 24;
+
+            if (!is24HourFormat) {
+                const suffix = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12;
+                document.getElementById('time').textContent = `${formatWithZero(hours)}:${formatWithZero(minutes)}:${formatWithZero(seconds)} ${suffix}`;
+            } else {
+                document.getElementById('time').textContent = `${formatWithZero(hours)}:${formatWithZero(minutes)}:${formatWithZero(seconds)}`;
+            }
+
+            document.getElementById('date').textContent = `${dayOfWeek}, ${date}`;
+        }
+
+        function formatWithZero(value) {
+            return value < 10 ? `0${value}` : value;
+        }
+
+        function toggleTimeFormat() {
+            is24HourFormat = !is24HourFormat;
+            updateClock();
+        }
+
+        function changeTimezone(timezone) {
+            selectedTimezone = timezone;
+            updateClock();
+        }
+
+        setInterval(updateClock, 1000);
+        window.onload = updateClock;
+    </script>
+</body>
+
+</html>

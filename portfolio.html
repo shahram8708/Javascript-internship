@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #333;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0056b3, #0096c7);
+            color: #fff;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ade8f4;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-toggle:checked+.menu {
+            display: block;
+        }
+
+        .menu {
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .menu a {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #ade8f4;
+        }
+
+        .menu-toggle-label {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1500;
+        }
+
+        .menu-toggle-label span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin-bottom: 5px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .menu-toggle:checked+.menu-toggle-label span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle:checked+.menu-toggle-label span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle:checked+.menu-toggle-label span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        section {
+            padding: 40px 20px;
+            background: white;
+            margin: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
+        .project {
+            margin-bottom: 20px;
+        }
+
+        .skills-list li {
+            line-height: 2;
+        }
+
+        .testimonial {
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #004494;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0056b3;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-toggle:checked+.menu-toggle-label span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .menu-toggle:checked+.menu-toggle-label span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle:checked+.menu-toggle-label span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .menu-toggle:checked+.menu-toggle-label span:nth-child(1),
+            .menu-toggle:checked+.menu-toggle-label span:nth-child(3) {
+                background-color: #fff;
+            }
+
+            .menu-toggle:checked~nav ul {
+                display: flex;
+            }
+
+            .menu {
+                position: static;
+                display: none;
+                width: 100%;
+                padding: 20px;
+                margin-top: 10px;
+                box-shadow: none;
+                background: none;
+            }
+
+            .menu a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: 500;
+                display: block;
+                margin-bottom: 10px;
+                transition: color 0.3s;
+            }
+
+            .menu a:hover {
+                color: #ade8f4;
+            }
+        }
+
+        .menu-toggle-label {
+            display: block;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1500;
+            width: 30px;
+            height: 21px;
+        }
+
+        .menu-toggle-label span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            margin-bottom: 6px;
+            transition: transform 0.3s, opacity 0.3s;
+            transform-origin: 1px;
+        }
+
+        .menu-toggle:checked+.menu-toggle-label span:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .menu-toggle:checked+.menu-toggle-label span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle:checked+.menu-toggle-label span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                position: absolute;
+                top: 80px;
+                right: 0;
+                background: linear-gradient(135deg, #0056b3, #0096c7);
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                display: none;
+            }
+
+            .menu a {
+                padding: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .menu-toggle:checked~.menu {
+                display: flex;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" style="display: none;">
+        <label for="menu-toggle" class="menu-toggle-label">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <h1>Portfolio</h1>
+        <nav>
+            <ul class="menu">
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#blog">Blog/Articles</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#resume">Resume/CV</a></li>
+                <li><a href="#certifications">Certifications/Awards</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab quidem, animi perferendis tenetur libero ea
+            maxime mollitia dolorem facilis ipsa rerum similique necessitatibus nam recusandae aliquam nisi, illum sunt
+            voluptate. Dolorum accusantium alias consectetur odio quos maiores eos nostrum. Enim laboriosam aspernatur
+            assumenda ducimus totam eaque dolor error alias obcaecati.</p>
+    </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis, praesentium atque voluptatem
+                numquam corrupti, explicabo laboriosam ipsa sapiente ullam accusantium esse blanditiis non illum beatae
+                modi nostrum doloribus consequatur quod deserunt dolores? Suscipit quasi fugit amet a placeat modi
+                corrupti quis odit, recusandae accusamus quod nam doloremque vitae mollitia?</p>
+        </div>
+    </section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul class="skills-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+    </section>
+    <section id="blog">
+        <h2>Blog/Articles</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia assumenda pariatur animi reprehenderit, iste
+            rem tempore recusandae cum non ut aliquid soluta dolorum adipisci neque praesentium vitae illo ad hic
+            libero, mollitia placeat! Distinctio repellendus dolore voluptate explicabo culpa. Minima possimus error
+            aperiam iusto sequi nam tempora suscipit sint aliquid.</p>
+    </section>
+    <section id="testimonials">
+        <h2>Testimonials</h2>
+        <div class="testimonial">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio, veniam commodi? Sequi, eaque.
+                Reprehenderit dolorem eos ipsa, rerum commodi magnam veritatis quos vero quidem similique enim minus!
+                Veniam, accusamus sint mollitia quidem laudantium asperiores. Ab atque quidem et corporis fugiat maiores
+                qui ipsa ex quaerat laboriosam. Aliquam ratione pariatur eaque?</p>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+    <section id="resume">
+        <h2>Resume/CV</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae molestias fugit odit alias ipsa! Amet
+            eaque iste sunt aperiam facilis minus quas repellat, mollitia suscipit. Quo repellendus libero eos ea,
+            labore quam nobis aspernatur nostrum, error nemo delectus, qui quod voluptatibus aut dolores obcaecati
+            voluptate ipsam cumque. Nam, quisquam officia.</p>
+    </section>
+    <section id="certifications">
+        <h2>Certifications/Awards</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto sunt, praesentium excepturi nemo, soluta aut
+            architecto velit accusantium sint, commodi repellendus perferendis culpa rerum magni. Possimus ducimus
+            dignissimos quidem laborum officia voluptatibus sapiente adipisci ullam similique natus, facere, praesentium
+            corporis consequuntur. Ratione repellat corrupti magni recusandae odit voluptatem quaerat iste.</p>
+    </section>
+    <footer>
+        <p>Copyright © 2024</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menu-toggle');
+
+            menuToggle.addEventListener('change', function () {
+                const menu = document.querySelector('.menu');
+                if (this.checked) {
+                    menu.style.display = 'flex';
+                } else {
+                    menu.style.display = 'none';
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    menuToggle.checked = false;
+                    menu.style.display = 'none';
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
